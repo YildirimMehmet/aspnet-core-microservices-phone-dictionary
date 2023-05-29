@@ -1,0 +1,161 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5360"
+  },
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/company",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "DownstreamPathTemplate": "/api/companies",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5361
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/company/{id}",
+      "UpstreamHttpMethod": [
+        "Delete"
+      ],
+      "DownstreamPathTemplate": "/api/companies/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5361
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/company/dictionary",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/api/companies/dictionary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5361
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/contact",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "DownstreamPathTemplate": "/api/contacts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5362
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/contact/{id}",
+      "UpstreamHttpMethod": [
+        "Delete"
+      ],
+      "DownstreamPathTemplate": "/api/companies/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5362
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/contact/person/{id}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/api/contacts/person/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5362
+        }
+      ],
+      "Key": "contacts"
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/person",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post"
+      ],
+      "DownstreamPathTemplate": "/api/persons",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5363
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/person/{id}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Delete"
+      ],
+      "DownstreamPathTemplate": "/api/persons/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5363
+        }
+      ],
+      "Key": "person"
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/LocationReports/{id}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/api/LocationReports/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5364
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/LocationReports",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post"
+      ],
+      "DownstreamPathTemplate": "/api/LocationReports",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5364
+        }
+      ]
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "person",
+        "contacts"
+      ],
+      "UpstreamPathTemplate": "/gateway/PersonWithContacts/{id}"
+    }
+  ]
+}
