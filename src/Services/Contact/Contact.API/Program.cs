@@ -13,7 +13,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseServices();
+app.UseServices(builder.Environment);
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
