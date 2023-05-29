@@ -26,14 +26,14 @@ services:
   gateway.api:
     container_name: gateway.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "5360:80"
 
   company.api:
     container_name: company.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - "ConnectionStrings:CompanySqlCnn=Server=testdb;Port=5432;Database=TestDb;User Id=myusername;Password=mypassword;"
     depends_on:
       - testdb
@@ -43,7 +43,7 @@ services:
   contact.api:
     container_name: contact.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - "ConnectionStrings:ContactSqlCnn=Server=testdb;Port=5432;Database=ContactDb;User Id=myusername;Password=mypassword;"
       - "RabbitMQ:Host=rabbitmq"
       - "RabbitMQ:Username=user"
@@ -57,7 +57,7 @@ services:
   person.api:
     container_name: person.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - "ConnectionStrings:PersonSqlCnn=Server=testdb;Port=5432;Database=PersonDb;User Id=myusername;Password=mypassword;"
     depends_on:
       - testdb
@@ -67,7 +67,7 @@ services:
   report.api:
     container_name: report.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - "ConnectionStrings:ReportSqlCnn=Server=testdb;Port=5432;Database=ReportDb;User Id=myusername;Password=mypassword;"
     depends_on:
       - testdb
