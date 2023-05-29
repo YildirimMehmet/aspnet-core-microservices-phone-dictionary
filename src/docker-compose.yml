@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  testdb:
+    image: postgres
+    
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: Gateways/APIGateway/Dockerfile
+
+  company.api:
+    image: ${DOCKER_REGISTRY-}companyapi
+    build:
+      context: .
+      dockerfile: Services/Company/Company.API/Dockerfile
+
+  contact.api:
+    image: ${DOCKER_REGISTRY-}contactapi
+    build:
+      context: .
+      dockerfile: Services/Contact/Contact.API/Dockerfile
+
+  person.api:
+    image: ${DOCKER_REGISTRY-}personapi
+    build:
+      context: .
+      dockerfile: Services/Person/Person.API/Dockerfile
+  
+  report.api:
+    image: ${DOCKER_REGISTRY-}reportapi
+    build:
+      context: .
+      dockerfile: Services/Report/Report.API/Dockerfile
+
+volumes:
+  postgres_data:

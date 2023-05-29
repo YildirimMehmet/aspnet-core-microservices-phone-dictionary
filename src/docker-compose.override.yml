@@ -1,0 +1,79 @@
+version: '3.4'
+
+services:
+  testdb:
+    container_name: testdb
+    environment:
+      - POSTGRES_USER=myusername
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=TestDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  
+  rabbitmq:
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  
+  gateway.api:
+    container_name: gateway.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5360:80"
+
+  company.api:
+    container_name: company.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:CompanySqlCnn=Server=testdb;Port=5432;Database=TestDb;User Id=myusername;Password=mypassword;"
+    depends_on:
+      - testdb
+    ports:
+      - "5361:80"
+
+  contact.api:
+    container_name: contact.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:ContactSqlCnn=Server=testdb;Port=5432;Database=ContactDb;User Id=myusername;Password=mypassword;"
+      - "RabbitMQ:Host=rabbitmq"
+      - "RabbitMQ:Username=user"
+      - "RabbitMQ:Password=password"
+    depends_on:
+      - testdb
+      - rabbitmq
+    ports:
+      - "5362:80"
+
+  person.api:
+    container_name: person.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:PersonSqlCnn=Server=testdb;Port=5432;Database=PersonDb;User Id=myusername;Password=mypassword;"
+    depends_on:
+      - testdb
+    ports:
+      - "5363:80"
+  
+  report.api:
+    container_name: report.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:ReportSqlCnn=Server=testdb;Port=5432;Database=ReportDb;User Id=myusername;Password=mypassword;"
+    depends_on:
+      - testdb
+      - rabbitmq
+    ports:
+      - "5364:80"
+
+volumes:
+  postgres_data:
