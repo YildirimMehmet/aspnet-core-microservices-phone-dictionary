@@ -1,7 +1,6 @@
 using Company.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -16,7 +15,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseServices();
+app.UseServices(builder.Environment);
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

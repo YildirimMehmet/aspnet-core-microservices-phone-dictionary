@@ -21,13 +21,16 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton(provider => new MapperConfiguration(cfg => { cfg.AddProfile(new MappingProfile()); }).CreateMapper());
     }
-    
-    public static void UseServices(this WebApplication app)
+
+    public static void UseServices(this WebApplication app, IWebHostEnvironment environment)
     {
         app.UseMiddleware<GlobalExceptionHandler>();
-        using var scope = app.Services.CreateScope();
-        var dbContext = scope.ServiceProvider
-            .GetRequiredService<PersonDbContext>();
-        dbContext.Database.Migrate();
+        if (environment.IsProduction())
+        {
+            using var scope = app.Services.CreateScope();
+            var dbContext = scope.ServiceProvider
+                .GetRequiredService<PersonDbContext>();
+            dbContext.Database.Migrate();
+        }
     }
 }
